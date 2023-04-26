@@ -74,6 +74,8 @@ class LibraryItem implements CatalogSystem {
   }
 }
 
+// let bookItems: any[] = [] 
+
 class Book extends LibraryItem {
   constructor(
     public title: string,
@@ -87,6 +89,18 @@ class Book extends LibraryItem {
     public price: number
   ) {
     super(title, author, genre, available, location, price);
+  }
+
+  getItem(): string[] {
+    return [this.title, this.author, this.genre];
+  }
+
+  checkAvailable(): void {
+    if (this.available === true) {
+      console.log(`This is available.`)
+    } else {
+    console.log(`Sorry, it is not available right now. `)
+    }
   }
 
   protected getLocation(): string {
@@ -113,3 +127,9 @@ class DVD extends LibraryItem {
     return this.location;
   }
 }
+
+let firstBook: Book = new Book('The Story of Magno', 'Prince Nesher Magno', 'Tragedy', 'Magno Publishing', '619-86-01094-10-8', 450, 'Philippines', true, 500)
+
+console.log(firstBook)
+firstBook.checkAvailable()
+console.log(firstBook.getItem())
