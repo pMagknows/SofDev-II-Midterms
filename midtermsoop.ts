@@ -3,11 +3,24 @@ interface CatalogSystem {
   author: string;
   genre: string;
   available: boolean;
+  
+  // method
+  findItemLocation(): void;
+  addItem(): void;
+  getItem(): string[];
+  removeItem(): void;
+  getPrice(): number;
+  getAuthor(): string;
+  changePrice(): number;
+  getTitle(): void;
+  getGenre(): string;
+  checkIfAvailable(): boolean;
 }
 
 class LibraryItem implements CatalogSystem {
-  constructor(title: string, author: string, genre: string, available: boolean) {
-    }
+  constructor(private _title: string, private _author: string, private _genre: string, private _available: boolean) {
+    
+  }
 }
 
 class Book extends LibraryItem {
