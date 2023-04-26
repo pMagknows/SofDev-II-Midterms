@@ -1,4 +1,5 @@
 interface CatalogSystem {
+  // attributes
   title: string;
   author: string;
   genre: string;
@@ -7,14 +8,9 @@ interface CatalogSystem {
   // methods
   findItemLocation(): void;
   addItem(): void;
-  getItem(): string[];
+  getItem(id: number): string[];
   removeItem(): void;
   getPrice(): number;
-  getAuthor(): string;
-  changePrice(): number;
-  getTitle(): void;
-  getGenre(): string;
-  checkIfAvailable(): boolean;
 }
 
 class LibraryItem implements CatalogSystem {
@@ -23,7 +19,14 @@ class LibraryItem implements CatalogSystem {
     public author: string,
     public genre: string,
     public available: boolean,
-  ) {}
+  ) {
+    this.title = title,
+    this.author = author,
+    this.genre = genre,
+    this.available = available
+
+  }
+
 
   findItemLocation(): void {
     console.log(`The location of "${this.title}" is ${this.getLocation()}.`);
@@ -34,6 +37,7 @@ class LibraryItem implements CatalogSystem {
   }
 
   getItem(): string[] {
+
     return [this.title, this.author, this.genre];
   }
 
@@ -61,10 +65,6 @@ class LibraryItem implements CatalogSystem {
     return this.genre;
   }
 
-  checkIfAvailable(): boolean {
-    return this.available;
-  }
-  
   protected getLocation(): string {
     return 'Unknown'; // replace with actual implementation
   }
