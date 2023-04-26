@@ -4,6 +4,10 @@ interface CatalogSystem {
   genre: string;
   available: boolean;
   location: string,
+  language: string;
+  publicationYear: number;
+  targetAudience: string;
+  reviews: string
   price: number;
   
   // methods
@@ -26,9 +30,13 @@ class LibraryItem implements CatalogSystem {
     public genre: string,
     public available: boolean,
     public location: string,
+    public language: string,
+    public publicationYear: number,
+    public targetAudience: string,
+    public reviews: string,
     public price: number
   ) {}
-
+  
   findItemLocation(): void {
     console.log(`The location of "${this.title}" is ${this.getLocation()}.`);
   }
@@ -46,7 +54,7 @@ class LibraryItem implements CatalogSystem {
   }
 
   getPrice(): number {
-    return 0; // replace with actual implementation
+    return this.price; // replace with actual implementation
   }
 
   getAuthor(): string {
@@ -70,7 +78,7 @@ class LibraryItem implements CatalogSystem {
   }
   
   protected getLocation(): string {
-    return 'Unknown'; // replace with actual implementation
+    return 'Unknown';
   }
 }
 
@@ -86,9 +94,17 @@ class Book extends LibraryItem {
     public numberOfPages: number,
     public location: string,
     public available: boolean,
+    public language: string,
+    public publicationYear: number,
+    public targetAudience: string,
+    public reviews: string,
     public price: number
   ) {
-    super(title, author, genre, available, location, price);
+    super(title, author, genre, available, location, language, publicationYear, targetAudience, reviews, price);
+  }
+
+  private setPrice(price: number) {
+    this.price = price
   }
 
   getItem(): string[] {
@@ -100,6 +116,24 @@ class Book extends LibraryItem {
       console.log(`This is available.`)
     } else {
     console.log(`Sorry, it is not available right now. `)
+    }
+  }
+
+  checkPrice(name: string): void {
+    console.log(`The price is Php${this.price} ${name}`)
+  }
+  checkPrice(name: string, value:number): void {
+    console.log(`The price is Php${this.price} + Tips of php${value} Thank you ${name} <3`)
+  }
+
+  checkSale() {
+    if (this.author === '') {
+      return
+    }
+    let seeAuthor = this.author.split(' ')
+    if (seeAuthor[0] === 'Prince') {
+      let discountPrice = (this.price - (this.price * 0.05));
+      return this.setPrice(discountPrice)
     }
   }
 
@@ -118,9 +152,43 @@ class DVD extends LibraryItem {
     public rating: string,
     public location: string,
     public available: boolean,
+    public language: string,
+    public publicationYear: number,
+    public targetAudience: string,
+    public reviews: string,
     public price: number
   ) {
-    super(title, director, genre, available, location, price);
+    super(title, director, genre, available, location, language, publicationYear, targetAudience, reviews, price);
+  }
+
+  private setPrice(price: number): void {
+    this.price = price
+    console.log('Price has been updated!')
+  }
+
+  getPrice(): number {
+    return this.price;
+  }
+
+  isAvailable(): void {
+    if(this.available === true){
+      console.log('Yes it is available!')
+    }else {
+      console.log('No, this is not available!')
+    } 
+  }
+
+  checkSale(): void {
+    let directorsale = this.director.split(' ')
+    if (directorsale[0] === 'Prince' || directorsale[0] === 'Clyde') {
+      let discountPrice = this.price - this.price * 0.05;
+      this.setPrice(discountPrice)
+      console.log(`Updated price to ${this.price}`)
+    }
+  }
+
+  getTargetAudience(): string {
+    return this.targetAudience;
   }
 
   protected getLocation(): string {
@@ -128,8 +196,28 @@ class DVD extends LibraryItem {
   }
 }
 
-let firstBook: Book = new Book('The Story of Magno', 'Prince Nesher Magno', 'Tragedy', 'Magno Publishing', '619-86-01094-10-8', 450, 'Philippines', true, 500)
+let nameOfBook1: Book = new Book('The Da Vinci Code', 'Dan Brown', 'Mystery', 'Doubleday', '978-0385504201', 464, 'United States', false, 'English', 2003, 'Adult', 'Thrilling page-turner!', 1500);
+let theAlchemist: Book = new Book('The Alchemist', 'Prince Nesher Magno', 'Fiction', 'HarperOne', '978-0062315007', 208, 'Brazil', true, 'English', 1988, 'Adult', 'Life-changing book!', 1300)
+let nameOfBook9: Book = new Book('The Subtle Art of Not Giving a F*ck', 'Mark Manson', 'Self-help', 'HarperOne', '978-0062457714', 224, 'United States', true, 'English', 2016, 'Adult', 'Unconventional self-improvement', 900);
 
-console.log(firstBook)
-firstBook.checkAvailable()
-console.log(firstBook.getItem())
+theAlchemist.checkAvailable()
+console.log(theAlchemist.getItem())
+theAlchemist.checkSale()
+console.log(theAlchemist.checkPrice('Ian'))
+console.log(theAlchemist.checkPrice(100))
+
+const randomDVD: DVD = new DVD (
+  "The Dark Knight",
+  "Christopher Nolan",
+  "Action",
+  ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
+  152,
+  "PG-13",
+  "Los Angeles",
+  true,
+  "English",
+  1980,
+  "Teen and Up",
+  "A gritty and intense superhero movie with an iconic performance by Heath Ledger as the Joker.",
+  200
+);
