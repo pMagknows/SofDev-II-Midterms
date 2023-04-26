@@ -1,16 +1,22 @@
 interface CatalogSystem {
-  // attributes
   title: string;
   author: string;
   genre: string;
   available: boolean;
+  location: string,
+  price: number;
   
   // methods
   findItemLocation(): void;
   addItem(): void;
-  getItem(id: number): string[];
+  getItem(): string[];
   removeItem(): void;
   getPrice(): number;
+  getAuthor(): string;
+  changePrice(): number;
+  getTitle(): void;
+  getGenre(): string;
+  checkIfAvailable(): boolean;
 }
 
 class LibraryItem implements CatalogSystem {
@@ -19,14 +25,9 @@ class LibraryItem implements CatalogSystem {
     public author: string,
     public genre: string,
     public available: boolean,
-  ) {
-    this.title = title,
-    this.author = author,
-    this.genre = genre,
-    this.available = available
-
-  }
-
+    public location: string,
+    public price: number
+  ) {}
 
   findItemLocation(): void {
     console.log(`The location of "${this.title}" is ${this.getLocation()}.`);
@@ -37,7 +38,6 @@ class LibraryItem implements CatalogSystem {
   }
 
   getItem(): string[] {
-
     return [this.title, this.author, this.genre];
   }
 
@@ -65,6 +65,10 @@ class LibraryItem implements CatalogSystem {
     return this.genre;
   }
 
+  checkIfAvailable(): boolean {
+    return this.available;
+  }
+  
   protected getLocation(): string {
     return 'Unknown'; // replace with actual implementation
   }
@@ -80,8 +84,9 @@ class Book extends LibraryItem {
     public numberOfPages: number,
     public location: string,
     public available: boolean,
+    public price: number
   ) {
-    super(title, author, genre, available);
+    super(title, author, genre, available, location, price);
   }
 
   protected getLocation(): string {
@@ -99,8 +104,9 @@ class DVD extends LibraryItem {
     public rating: string,
     public location: string,
     public available: boolean,
+    public price: number
   ) {
-    super(title, director, genre, available);
+    super(title, director, genre, available, location, price);
   }
 
   protected getLocation(): string {
