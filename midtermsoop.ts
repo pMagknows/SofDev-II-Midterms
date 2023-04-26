@@ -10,7 +10,6 @@ interface CatalogSystem {
   addItem(): void;
   getItem(id: number): string[];
   removeItem(): void;
-  getPrice(): number;
 }
 
 class LibraryItem implements CatalogSystem {
@@ -37,7 +36,6 @@ class LibraryItem implements CatalogSystem {
   }
 
   getItem(): string[] {
-
     return [this.title, this.author, this.genre];
   }
 
@@ -68,7 +66,14 @@ class LibraryItem implements CatalogSystem {
   protected getLocation(): string {
     return 'Unknown'; // replace with actual implementation
   }
+
+  checkAvailable() {
+     
+  }
+
 }
+
+// let bookItems: any[] = [] 
 
 class Book extends LibraryItem {
   constructor(
@@ -82,6 +87,18 @@ class Book extends LibraryItem {
     public available: boolean,
   ) {
     super(title, author, genre, available);
+  }
+
+  getItem(): string[] {
+    return [this.title, this.author, this.genre];
+  }
+
+  checkAvailable(): void {
+    if (this.available === true) {
+      console.log(`This is available.`)
+    } else {
+    console.log(`Sorry, it is not available right now. `)
+    }
   }
 
   protected getLocation(): string {
@@ -107,3 +124,9 @@ class DVD extends LibraryItem {
     return this.location;
   }
 }
+
+let firstBook: Book = new Book('The Story of Magno', 'Prince Nesher Magno', 'Tragedy', 'Magno Publishing', '619-86-01094-10-8', 450, 'Philippines', true)
+
+console.log(firstBook)
+firstBook.checkAvailable()
+console.log(firstBook.getItem())
