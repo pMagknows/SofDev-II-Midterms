@@ -205,7 +205,8 @@ console.log(theAlchemist.checkPrice('Ian'))
 console.log(theAlchemist.checkPrice('Ian', 100))
 theAlchemist.getTitle()
 
-const randomDVD: DVD = new DVD (
+// Create a new DVD object
+const myDVD: DVD = new DVD(
   "The Dark Knight",
   "Christopher Nolan",
   "Action",
@@ -215,8 +216,44 @@ const randomDVD: DVD = new DVD (
   "Los Angeles",
   true,
   "English",
-  1980,
+  2008,
   "Teen and Up",
   "A gritty and intense superhero movie with an iconic performance by Heath Ledger as the Joker.",
   200
 );
+
+// Test the getPrice method
+console.log(myDVD.getPrice()); // Output: 200
+
+// Test the setPrice method
+myDVD.setPrice(250);
+console.log(myDVD.getPrice()); // Output: Price has been updated! & Output: 250
+
+// Test the isAvailable method
+myDVD.isAvailable(); // Output: Yes it is available!
+
+// Test the checkSale method with no discount
+myDVD.checkSale(); // Output: No Discount!
+
+// Test the checkSale method with discount
+const discountDVD: DVD = new DVD(
+  "The Prince of Darkness",
+  "Prince Johnson",
+  "Horror",
+  ["John Doe", "Jane Smith"],
+  90,
+  "R",
+  "New York",
+  true,
+  "English",
+  2019,
+  "Adult",
+  "A scary movie about a haunted house.",
+  100
+);
+
+discountDVD.checkSale(); // Output: Updated price to 95
+
+// Test the getTargetAudience method
+console.log(myDVD.getTargetAudience()); // Output: Teen and Up
+
