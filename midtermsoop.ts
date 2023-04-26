@@ -82,8 +82,6 @@ class LibraryItem implements CatalogSystem {
   }
 }
 
-// let bookItems: any[] = [] 
-
 class Book extends LibraryItem {
   constructor(
     public title: string,
@@ -191,7 +189,7 @@ class DVD extends LibraryItem {
     return this.targetAudience;
   }
 
-  protected getLocation(): string {
+  getLocation(): string {
     return this.location;
   }
 }
@@ -204,7 +202,8 @@ theAlchemist.checkAvailable()
 console.log(theAlchemist.getItem())
 theAlchemist.checkSale()
 console.log(theAlchemist.checkPrice('Ian'))
-console.log(theAlchemist.checkPrice(100))
+console.log(theAlchemist.checkPrice('Ian', 100))
+theAlchemist.getTitle()
 
 const randomDVD: DVD = new DVD (
   "The Dark Knight",
